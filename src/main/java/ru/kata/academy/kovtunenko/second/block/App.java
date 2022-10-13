@@ -3,6 +3,7 @@ package ru.kata.academy.kovtunenko.second.block;
 import ru.kata.academy.kovtunenko.second.block.config.AppConfig;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.kata.academy.kovtunenko.second.block.model.AnimalsCage;
 
 public class App {
 
