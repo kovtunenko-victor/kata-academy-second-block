@@ -1,5 +1,6 @@
 package ru.kata.academy.kovtunenko.second.block.config;
 
+import ru.kata.academy.kovtunenko.second.block.model.Car;
 import ru.kata.academy.kovtunenko.second.block.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -45,7 +46,7 @@ public class AppConfig {
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
 
         factoryBean.setHibernateProperties(props);
-        factoryBean.setAnnotatedClasses(User.class);
+        factoryBean.setAnnotatedClasses(User.class, Car.class);
         return factoryBean;
     }
 

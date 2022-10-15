@@ -1,10 +1,13 @@
 package ru.kata.academy.kovtunenko.second.block.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -13,6 +16,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "name")
@@ -24,7 +28,13 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    public User() {}
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Car car;
+
+    public User() {
+
+    }
 
     public User(String firstName, String lastName, String email) {
         this.firstName = firstName;
@@ -64,9 +74,25 @@ public class User {
         this.email = email;
     }
 
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
     @Override
     public String toString() {
-        return String.format("User: Id = %s; First name = %s; Last name = %s; Email = %s"
-                , this.id, this.firstName, this.lastName, this.email);
+        return String.format("User: Id = %s; First name = %s; Last name = %s; Email = %s; %s"
+                , this.id, this.firstName, this.lastName, this.email, this.car);
+    }
+
+    public static EmptyUser getEmptyUser() {
+        return new EmptyUser();
+    }
+
+    private static class EmptyUser extends User {
+
     }
 }
