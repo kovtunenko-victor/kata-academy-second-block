@@ -11,7 +11,7 @@ import java.util.List;
 
 @Controller
 public class UserController {
-    //@Autowired
+    @Autowired
     UserService service;
 
     @GetMapping(value = "/")
@@ -24,12 +24,12 @@ public class UserController {
         return "index";
     }
 
-    /*@GetMapping(value = "/user")
+    @GetMapping(value = "/user")
     public String printUser(ModelMap model) {
         List<String> messages = new ArrayList<>();
         messages.add(service.getUserById(1L).toString());
         model.addAttribute("messages", messages);
 
         return "index";
-    }*/
+    }
 }

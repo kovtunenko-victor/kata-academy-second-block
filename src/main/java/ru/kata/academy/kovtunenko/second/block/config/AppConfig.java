@@ -1,6 +1,7 @@
 package ru.kata.academy.kovtunenko.second.block.config;
 
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -21,7 +22,8 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
-@ComponentScan(value = "ru.kata.academy.kovtunenko.second.block")
+@ComponentScan("ru.kata.academy.kovtunenko.second.block")
+@EnableJpaRepositories("ru.kata.academy.kovtunenko.second.block.repository")
 public class AppConfig {
     @Autowired
     private Environment env;
@@ -53,7 +55,7 @@ public class AppConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(getDataSource());
-        em.setPackagesToScan(new String[] { "ru.kata.academy.kovtunenko.second.block.model" });
+        em.setPackagesToScan("ru.kata.academy.kovtunenko.second.block.model");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

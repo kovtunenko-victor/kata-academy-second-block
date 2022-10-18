@@ -2,13 +2,16 @@ package ru.kata.academy.kovtunenko.second.block.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.time.LocalDate;
+
 @Entity
 @Table(name = "users")
 public class User {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "name")
@@ -20,7 +23,7 @@ public class User {
 
     }
 
-    public User(Long id, String name, String title) {
+    public User(String name, String title) {
         this.id = id;
         this.name = name;
         this.title = title;
@@ -28,10 +31,6 @@ public class User {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getName() {
