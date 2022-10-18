@@ -85,4 +85,12 @@ public class User {
     public String toString() {
         return String.format("User: Id = %s; Name = %s; Title = %s", id, name, title);
     }
+
+    public static User getEmptyUser() {
+        return new EmptyUser();
+    }
+
+    private static class EmptyUser extends User {
+
+    }
 }
