@@ -16,11 +16,11 @@ public class UserService {
     //private UserRepository userRepository;
     private UserRepositoryNoJpa userRepository;
 
-    public List<User> findAll() {
+    public List<User> get() {
         return userRepository.findAll();
     }
 
-    public User getUserById(Long id) {
+    public User getById(Long id) {
         return userRepository.findById(id).orElse(User.getEmptyUser());
     }
 
@@ -36,6 +36,6 @@ public class UserService {
 
     @Transactional
     public void deleteById(Long id) {
-        userRepository.delete(getUserById(id));
+        userRepository.delete(getById(id));
     }
 }

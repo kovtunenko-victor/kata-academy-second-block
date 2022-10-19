@@ -3,7 +3,10 @@ package ru.kata.academy.kovtunenko.second.block.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import ru.kata.academy.kovtunenko.second.block.model.User;
 import ru.kata.academy.kovtunenko.second.block.service.UserService;
 
 import java.util.ArrayList;
@@ -24,12 +27,21 @@ public class UserController {
         return "index";
     }
 
-    @GetMapping(value = "/user")
+    @GetMapping(value = "/users")
     public String printUser(ModelMap model) {
-        List<String> messages = new ArrayList<>();
-        messages.add(service.getUserById(1L).toString());
-        model.addAttribute("messages", messages);
+        model.addAttribute("users", service.get());
+        return "users";
+    }
 
-        return "index";
+    @GetMapping(value = "/users/edit/{id}")
+    public String editUser(@PathVariable(value = "id", required = false) int id, ModelMap model) {
+        model.addAttribute("id", id);
+        return "edit";
+    }
+
+    @DeleteMapping(value = "/users/delete/{id}")
+    public String deleteUser(@PathVariable(value = "id", required = true) int id) {
+        //model.addAttribute("users", service.get());
+        return "edit";
     }
 }
