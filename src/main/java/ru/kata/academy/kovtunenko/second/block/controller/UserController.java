@@ -19,7 +19,6 @@ import java.util.List;
 
 @Controller
 public class UserController {
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
     @Autowired
     UserService service;
 
@@ -61,8 +60,6 @@ public class UserController {
 
     @PatchMapping("/users/update/{id}")
     public String updateUser(@ModelAttribute("user") User user, @PathVariable("id") Long id) {
-        LOGGER.info(user.toString());
-        LOGGER.info(id == null ? "null" : id.toString());
         service.update(id, user);
         return "redirect:/users";
     }
