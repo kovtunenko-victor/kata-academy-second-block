@@ -42,6 +42,7 @@ public class UserController {
     public String editUser(@PathVariable("id") Long id, ModelMap model) {
         model.addAttribute("user", service.getById(id));
         model.addAttribute("method", "PATCH");
+        model.addAttribute("btnValue", "Edit User");
         return "edit";
     }
 
@@ -49,6 +50,7 @@ public class UserController {
     public String editUser(ModelMap model) {
         model.addAttribute("user", User.getEmptyUser());
         model.addAttribute("method", "POST");
+        model.addAttribute("btnValue", "Create User");
         return "edit";
     }
 

@@ -1,7 +1,6 @@
 package ru.kata.academy.kovtunenko.second.block.config;
 
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -16,6 +15,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import javax.persistence.EntityManager;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -23,7 +23,6 @@ import java.util.Properties;
 @PropertySource("classpath:db.properties")
 @EnableTransactionManagement
 @ComponentScan("ru.kata.academy.kovtunenko.second.block")
-@EnableJpaRepositories("ru.kata.academy.kovtunenko.second.block.repository")
 public class AppConfig {
     @Autowired
     private Environment env;
@@ -47,8 +46,8 @@ public class AppConfig {
     }
 
     @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
-        return new PersistenceExceptionTranslationPostProcessor();
+    public EntityManager entityManager() {
+        return entityManagerFactory().getObject().createEntityManager();
     }
 
     @Bean
@@ -60,15 +59,15 @@ public class AppConfig {
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(getProperties());
-
         return em;
     }
 
     private Properties getProperties() {
         Properties properties = new Properties();
 
-        properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-        properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
+        properties.put("hibernate.dialect", env.getProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect"));
+        properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql", "true"));
+        properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto", "none"));
 
         return properties;
     }

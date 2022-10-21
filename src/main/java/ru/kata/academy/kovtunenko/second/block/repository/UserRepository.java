@@ -1,10 +1,14 @@
 package ru.kata.academy.kovtunenko.second.block.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+
 import ru.kata.academy.kovtunenko.second.block.model.User;
+import java.util.List;
+import java.util.Optional;
 
-@Repository
-public interface UserRepository extends JpaRepository<User, Long> {
-
+public interface UserRepository {
+    List<User> findAll();
+    Optional<User> findById(Long id);
+    void save(User user);
+    void update(User user);
+    void delete(User user);
 }
