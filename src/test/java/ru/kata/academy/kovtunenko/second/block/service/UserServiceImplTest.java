@@ -44,13 +44,13 @@ public class UserServiceImplTest {
 
     @Test
     public void getByIdShouldReturnUserIfExistsInDb() {
-        when(userRepository.findById(1L)).thenReturn(Optional.of(new User()));
+        when(userRepository.findById(1L)).thenReturn(new User());
         assertThat(userService.getById(1L).getClass(), equalTo(User.class));
     }
 
     @Test
     public void getByIdShouldReturnEmptyUserIfNotExistsInDb() {
-        when(userRepository.findById(1L)).thenReturn(Optional.of(User.getEmptyUser()));
+        when(userRepository.findById(1L)).thenReturn(User.getEmptyUser());
         assertThat(userService.getById(1L).getClass(), equalTo(User.getEmptyUser().getClass()));
     }
 

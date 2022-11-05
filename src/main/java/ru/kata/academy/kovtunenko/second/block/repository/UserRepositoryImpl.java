@@ -22,19 +22,19 @@ public class UserRepositoryImpl implements UserRepository {
 
     public List<User> findAll() {
         try {
-            return em.createQuery("FROM User", User.class).getResultList();
+            return em.createQuery("SELECT u FROM User u", User.class).getResultList();
         } catch (IllegalStateException | PersistenceException | IllegalArgumentException ex) {
             LOGGER.error("Exception when get all user", ex);
             return Collections.emptyList();
         }
     }
 
-    public Optional<User> findById(Long id) {
+    public User findById(Long id) {
         try {
-            return Optional.of(em.find(User.class, id));
+            return em.find(User.class, id);
         } catch (IllegalStateException | PersistenceException | IllegalArgumentException | NullPointerException ex) {
             LOGGER.error("Exception when get user by id", ex);
-            return Optional.of(User.getEmptyUser());
+            return null;
         }
     }
 

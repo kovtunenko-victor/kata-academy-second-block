@@ -7,19 +7,21 @@ import ru.kata.academy.kovtunenko.second.block.model.User;
 import ru.kata.academy.kovtunenko.second.block.repository.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    public UserServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public List<User> get() {
         return userRepository.findAll();
     }
 
     public User getById(Long id) {
-        return userRepository.findById(id).orElse(User.getEmptyUser());
+        return Optional.ofNullable(userRepository.findById(id)).orElse(User.getEmptyUser());
     }
 
     @Transactional

@@ -21,7 +21,7 @@ public class TestConfig {
 
     @Bean
     public UserService userService () {
-        return new UserServiceImpl();
+        return new UserServiceImpl(userRepositoryMock());
     }
 
     @Bean
